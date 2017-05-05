@@ -70,9 +70,12 @@ def train():
 		decoder_target_list.append(decoder_targets_)
 		decoder_length_list.append(decoder_target_lengths_)
 
+
+	config = tf.ConfigProto() 
+	config.gpu_options.per_process_gpu_memory_fraction = 1.0
+	config.allow_soft_placement=True
 	
-	
-	with tf.Session(config=tf.ConfigProto(allow_soft_placement=True)) as sess:
+	with tf.Session(config=config) as sess:
 		sess.run(tf.global_variables_initializer())
 
 		model_ckpt_file = './status/model.ckpt'
